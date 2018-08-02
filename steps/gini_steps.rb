@@ -85,6 +85,21 @@ When(/^I swipe (left|right|up|down) (\d+) times?(?: (strong|normal|light))?$/) d
         $i +=1
     end
 end
+    
+When(/^I off-center swipe (left|right|up|down) (\d+) times?(?: (strong|normal|light))?$/) do |dir,times,strength|
+    $i = 0
+    strength ||= "strong"
+    $num = times.to_i
+    while $i < $num do
+        if strength == ""
+            swipe(dir, :offset => {:x => 0, :y => 200}, force: :strong)
+            else
+            swipe(dir, :offset => {:x => 0, :y => 200}, force: :"#{strength}")
+        end
+        wait_for_none_animating
+        $i +=1
+    end
+end
 
 Then (/^I select ([^\/]*)\/?(?:(.*))?$/) do |name1, name2|
     #    wait_for_none_animating
@@ -160,7 +175,7 @@ Then (/^I should not see ([^\/]*)\/?(?:(.*))?$/) do |name1, name2|
     val1 = element_exists("view marked:'#{name1}'")
     val2 = element_exists("view marked:'#{name2}'")
     if val1 == true || (val2 == true && name2 != "")
-        fail "cannot find #{name1} or #{name2}"
+        fail "can find #{name1} or #{name2}"
     end
     sleep(STEP_PAUSE)
 end
