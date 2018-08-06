@@ -1,12 +1,12 @@
 @settings
 Feature: settings page
-# set app to English first and at last onboarding page
+# set app to English first and linked banks already
 
 Background:
     Given the app has launched
     And I wait for Continue for 10 seconds
     And I wait for 1 second
-    And I select Skip/跳過
+#    And I select Skip/跳過
     And I enter 333333 as passcode
     When I select Continue
     Then I should see Transaction Feed/最新動態

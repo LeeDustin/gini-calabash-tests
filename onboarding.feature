@@ -23,7 +23,7 @@ Scenario: check swiping left and changing language on last onboarding slide
 Scenario: check swiping right and changing language in middle pages
   When I swipe right 3 times
   And I select 繁體中文
-  Then I should see 輕觸或滑動開始
+  Then I should not see 輕觸或滑動開始
 
 Scenario: check first page swipe bug
   When I swipe right

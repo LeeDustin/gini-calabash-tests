@@ -254,5 +254,15 @@ And (/^I wait for (.*) for (\d+) seconds?$/) do |element, time|
     wait_for(:timeout => time.to_i){ element_exists("view marked:'#{element}'")}
 end
     
-    
+And (/^I toggle button number (\d+)$/) do |index|
+    touch("switch index:#{index.to_i-1}")
+    val = query("switch")[index.to_i-1]["value"]
+    if val == "1"
+        puts "toggled button number #{index.to_i} from off to on"
+    elsif val == "0"
+        puts "toggled button number #{index.to_i} from on to off"
+    else
+        fail "something went wrong"
+    end
+end
     
