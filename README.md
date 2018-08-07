@@ -3,11 +3,11 @@
 ## How to setup calabash environment
 (official calabash tutorial: https://github.com/calabash/calabash-ios/wiki/Tutorial%3A-How-to-add-Calabash-to-Xcode)
 
-Prerequisites: 
+#### Prerequisites: 
 1. Have gini app installed and running in simulator
 2. ruby version >2.0
 
-Steps:
+#### Steps:
 1. In terminal, go to directory containing the .xcodeproj (i.e. gini/ios)
 2. execute `gem install calabash-cucumber`
 3. Open the xcode project in xcode, right click on the Frameworks directory in the file explorer, and click "Add files to ..."
@@ -27,4 +27,45 @@ gem "cucumber", "~> 2.4"
 11. The default test should run successfully
 
 
-## how to use the test
+## How to use the tests
+
+#### Prerequisites: 
+1. calabash environment and default test can run on gini app in simulator
+
+#### Setup:
+1. Download or clone this repository
+2. rename this repository as features
+3. replace the features folder inside gini/ios with this direcotory
+
+Do not use `bundle exec cucumber` directly, as it will execute all feature files in alphabetical order, which takes a very long time and is not in the correct order. To run the full test suite, use `bundle exec cucumber ...`, making sure the app is initially on first page of onboarding slides and in English.
+
+You can execute separate feature files using `bundle exec cucumber -t <tag>`, as each feature file has an unique tag, as listed in the table below.
+
+#### Feature files
+
+| Feature File | tag | description | initial condition |
+| --- | --- | --- | --- |
+| onboarding.feature | @onboarding | tests the onbording slides | at first page of onboarding slides, app set in English|
+
+
+
+
+
+## How to write more tests?
+
+The test suite is currently incomplete, as most tests are in English, and some tests are difficult to run automatically. So feel free to add more step definitions and feature files to make the test suite better!
+
+The priniple behind the automated tests is simple. the feature files inside gini/features have the steps written with Gherkin, the language used by cucumber for writing automated tests. The steps in the feature files are then matched with the regex in step definitions in gini/features/steps/gini_steps.rb, which executes the code in the .rb file if matched. 
+
+### Brief Introduction to Gherkin
+
+Please feel free to read up more on Gherkin, but here is a bried introduction of Gherkin, so you should be able to start writing your own tests after reading this and referring to the other feature files.
+
+If you open the 
+
+
+#### Step definitions
+
+
+
+
