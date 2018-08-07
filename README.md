@@ -1,0 +1,30 @@
+# gini-calabash-tests
+
+## How to setup calabash environment
+(official calabash tutorial: https://github.com/calabash/calabash-ios/wiki/Tutorial%3A-How-to-add-Calabash-to-Xcode)
+
+Prerequisites: 
+1. Have gini app installed and running in simulator
+2. ruby version >2.0
+
+Steps:
+1. In terminal, go to directory containing the .xcodeproj (i.e. gini/ios)
+2. execute `gem install calabash-cucumber`
+3. Open the xcode project in xcode, right click on the Frameworks directory in the file explorer, and click "Add files to ..."
+4. Add calabash.framework
+5. In terminal, execute `calabash-ios setup` and answer the questions accordingly, sticking to the default options
+6. execute `calabash-ios gen` to create the features folder
+7. In xcode, build the gini-cal project to make sure it works
+8. In the project directory, edit the Gemfile and make sure the gem file at least contain the following lines:
+```
+source "https://rubygems.org"
+  
+gem "calabash-cucumber", ">= 0.21.5", "< 2.0"
+gem "cucumber", "~> 2.4"
+```
+9. In terminal, execute `bundle install` to install the gems using bundler
+10. execute `bundle exec cucumber` to run the default test
+11. The default test should run successfully
+
+
+## how to use the test
