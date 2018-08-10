@@ -91,8 +91,19 @@ Then in the scenario outline, Login button will be pressed first, and after the 
 #### Background
 Similar to Scenario, but the steps stated in Background are run before each scenario and scenario outline.
 
+### How to write steps
+So we know steps have to be written in Scenarios, Scenario Outlines and Background. How do we write it?
 
-#### Step definitions
+There are default steps provided by calabash and custom step definitions defined in `features/steps/gini_steps.rb` Please find below a summary of all the steps used in the feature files.
+
+With the steps, you add Given/When/Then/And before each step to form coherent test cases. Given is for stating prerequisites, When is for the main action of the test, Then is the result of that action, and And is for any conjunction between the above.
+
+It should be noted that these four keywords do not have any differences in terms of functionality, it is just for making the test more readable.
+
+
+### Step definitions
+Although a lot of step definitions have already been defined for this app, you may want to modify the step definitions or create new ones yourself.
+
 
 
 
