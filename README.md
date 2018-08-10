@@ -43,10 +43,19 @@ You can execute separate feature files using `bundle exec cucumber -t <tag>`, as
 
 #### Feature files
 
-| Feature File | tag | description | initial condition |
+| Feature File | Tag | Initial Conditions | Remarks |
 | --- | --- | --- | --- |
-| onboarding.feature | @onboarding | tests the onbording slides | at first page of onboarding slides, app set in English|
-
+| onboarding.feature | @onboarding | at first page of onboarding slides, app set in English ||
+| forgot_password.feature | @forgot | at last page of onboarding slides, app set in English ||
+| create_acc.feature | @createAcc | at last page of onboarding slides, app set in English | change the email at the last example each time this feature file is run, as a new email has to be used for each new account |
+| login_page.feature | @login | at last page of onboarding slides, app set in English |  |
+| create_pw.feature | @createpw | logged in, but pw not created yet |  |
+| bank_login.feature | @banklogin | logged in, already entered pw as 333333 |  |
+| settings.feature | @settings | linked banks, in main app interface |  |
+| settings_general.feature | @settingsg | in main app interface, app in English and transaction amount not hidden |  |
+| transaction_search.feature | @tsearch | in main app interface, app in English |  |
+| transaction_feed.feature | @tfeed | in main app interface, app in English | has the specified bank cards in the feature file |
+| reports.feature | @reports | in main app interface, app in English, reports page in July |  |
 
 
 
