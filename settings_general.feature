@@ -140,7 +140,7 @@ Scenario Outline: check save button (invalid credentials)
     And I enter "<new_password>" into textbox number 3
     And I select Save
     Then I wait for Error for 5 seconds
-    And I select Ok
+    And I select OK
     And I should see Change password
 
 Examples:

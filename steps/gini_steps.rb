@@ -102,7 +102,7 @@ When(/^I off-center swipe (left|right|up|down) (\d+) times?(?: (strong|normal|li
 end
 
 Then (/^I select ([^\/]*)\/?(?:(.*))?$/) do |name1, name2|
-    #    wait_for_none_animating
+    wait_for_none_animating
     val1 = element_exists("view marked:'#{name1}'")
     val2 = element_exists("view marked:'#{name2}'")
     if val1 == true
@@ -139,6 +139,7 @@ Then (/^I tap the screen (\d+) times?$/) do |times|
 end
 
 Then (/^I should see ([^\/]*)\/?(?:(.*))?$/) do |name1, name2|
+    wait_for_none_animating
     val1 = element_exists("view marked:'#{name1}'")
     val2 = element_exists("view marked:'#{name2}'")
     if val1 == true
@@ -181,15 +182,20 @@ Then (/^I should not see ([^\/]*)\/?(?:(.*))?$/) do |name1, name2|
 end
                   
 Then (/^I click back$/) do
-    touch(nil, {:offset => {:x => 30, :y => 30}})
+    wait_for_none_animating
+    touch(nil, {:offset => {:x => 25, :y => 25}})
     sleep(STEP_PAUSE)
 end
 
 When (/^I enter "([^"]*)" into textbox number (\d+)$/) do |text, index|
 touch("UITextField index:#{index.to_i-1}")
     wait_for_keyboard()
-    while query("UITextField", :text)[index.to_i-1] != ""
+    $r = 0
+    og_text = query("UITextField", :text)[index.to_i-1]
+    size = og_text.length
+    while $r < size
         keyboard_enter_char 'Delete'
+        $r += 1
     end
     keyboard_enter_text text
     actual_text = query("UITextField", :text)[index.to_i-1]
@@ -198,8 +204,11 @@ touch("UITextField index:#{index.to_i-1}")
         puts "lol outputs #{actual_text}"
         $i = 0
         $num = length.to_i
-        while query("UITextField", :text)[index.to_i-1] != ""
+        $r = 0
+        size = actual_text.length
+        while $r < size
             keyboard_enter_char 'Delete'
+            $r += 1
         end
         while $i < $num do
             keyboard_enter_char text[$i]
@@ -208,6 +217,11 @@ touch("UITextField index:#{index.to_i-1}")
     end
 #    keyboard_enter_char 'Return'
     sleep(STEP_PAUSE)
+end
+    
+When (/^I enter the character (\w+)$/) do |text|
+    wait_for_keyboard()
+    keyboard_enter_char text
 end
 
 Then (/^textbox number (\d+) should be empty$/) do |index|
@@ -226,15 +240,22 @@ And (/^ I wait for (\d+) seconds?$/) do |seconds|
     sleep(seconds.to_i)
 end
     
-Then (/^the submit button labeled (\w+) should be unclickable$/) do |label|
-    if query("view marked:'#{label}'", "alpha").include? 0.5 == false
-        fail "no unclickable item labeled #{label}"
+Then (/^the (submit button|card|pie slice) labeled (.*) should be (unclickable|unselected)$/) do |item,label,action|
+#    arr =query("view marked:'#{label}'", "alpha")
+#    puts arr
+#    puts query("view marked:'#{label}'", "alpha").include? 0.5
+#    puts query("view marked:'#{label}'", "alpha").include? 0.2000000029802322
+#    puts (query("view marked:'#{label}'", "alpha").include? 0.5 == false) && (query("view marked:'#{label}'", "alpha").include? 0.2000000029802322 == false)
+    if (query("view marked:'#{label}'", "alpha").include? 0.5) || (query("view marked:'#{label}'", "alpha").include? 0.2000000029802322) || (query("view marked:'#{label}'", "alpha").include? 0.300000011920929)
+        
+    else
+    fail "no un#{action} #{item} labeled #{label}"
     end
 end
 
-Then (/^the submit button labeled (\w+) should be clickable$/) do |label|
-    if query("view marked:'#{label}'", "alpha").include? 0.5 == true
-        fail "no unclickable item labeled #{label}"
+Then (/^the (submit button|card|pie slice) labeled (.*) should be (clickable|selected)$/) do |item,label,action|
+    if (query("view marked:'#{label}'", "alpha").include? 0.5) || (query("view marked:'#{label}'", "alpha").include? 0.2000000029802322)
+        fail "there is an un#{action} #{item} labeled #{label}"
     end
 end
     
@@ -251,7 +272,11 @@ Then (/^I enter (\d+) as passcode$/) do |pw|
 end
 
 And (/^I wait for (.*) for (\d+) seconds?$/) do |element, time|
-    wait_for(:timeout => time.to_i){ element_exists("view marked:'#{element}'")}
+    text = escape_quotes("#{element}")
+    wait_for(:timeout => time.to_i){ element_exists("view marked:'#{text}'")}
+    if element_exists("view marked:'#{text}'") == true
+        puts "found #{text}"
+    end
 end
     
 And (/^I toggle button number (\d+)$/) do |index|
@@ -263,6 +288,30 @@ And (/^I toggle button number (\d+)$/) do |index|
         puts "toggled button number #{index.to_i} from on to off"
     else
         fail "something went wrong"
+    end
+end
+
+And (/^there should be (\d+) cards? unselected$/) do |number|
+    arr = query("*", :alpha)
+    index = arr.each_index.select{|i| arr[i] == 0.2000000029802322}
+    size = index.size
+    if size != number.to_i
+        fail "there are #{size} cards unselected instead of #{number} cards"
+    else
+        puts "#{number} cards are unselected"
+    end
+    
+end
+
+Then (/^the card labeled (\w+) should be unselected$/) do |label|
+    if query("view marked:'#{label}'", "alpha").include? 0.5 == true
+        fail "no unclickable item labeled #{label}"
+    end
+end
+
+Then (/^the card labeled (\w+) should be selected$/) do |label|
+    if query("view marked:'#{label}'", "alpha").include? 0.5 == false
+        fail "no unclickable item labeled #{label}"
     end
 end
     

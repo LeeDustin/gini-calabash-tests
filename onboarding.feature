@@ -8,7 +8,7 @@ Feature: Onboarding slides
 Background:
   Given the app has launched
   And I wait for 1 seconds
-  And I select Skip/跳過
+#  And I select Skip/跳過
 
 
 Scenario: check swiping left and changing language on last onboarding slide
