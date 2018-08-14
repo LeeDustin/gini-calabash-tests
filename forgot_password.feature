@@ -4,24 +4,24 @@ Feature: Forgot password page
 
 Background:
     Given the app has launched
-    And I select Skip/跳過
+#    And I select Skip/跳過
     And I select Login/登入
     And I select Forgot your password?/忘記密碼
 
 Scenario: changing language without text
     Given textbox number 1 should be empty
-    When I touch on screen 310 from the left and 40 from the top
+    When I touch on screen 350 from the left and 40 from the top
 # language button
     Then I should see 繁體中文
 
-    When I touch on screen 310 from the left and 40 from the top
+    When I touch on screen 350 from the left and 40 from the top
     Then I should see English
 
 
 Scenario: changing text in textbox and changing language with text
     Given I enter "abc" into textbox number 1
     And I enter "def" into textbox number 1
-    When I touch on screen 310 from the left and 40 from the top
+    When I touch on screen 350 from the left and 40 from the top
 # language button
     Then textbox number 1 should be empty
 
@@ -59,7 +59,7 @@ Examples:
     |a@a.com|
     |demo@gini.co|
 
-Scenario: check Login button (valid)
+Scenario: check submit button (valid)
     When I enter "demo@gini.co" into textbox number 1
     Then the submit button labeled Submit should be clickable
 

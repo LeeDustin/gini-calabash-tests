@@ -6,7 +6,7 @@ Feature: Create Account page
 
 Background:
     Given the app has launched
-    And I select Skip/跳過
+#    And I select Skip/跳過
     And I select Sign up/註冊
 
 Scenario: changing language without text
@@ -31,7 +31,7 @@ Scenario: check back button and login button
 
     Given I select Login.
     When I should see Sign up
-    And I touch on screen 245 from the left and 400 from the top
+    And I touch on screen 305 from the left and 430 from the top
     # sign up button
     Then I should see New Password
 
@@ -217,7 +217,7 @@ Scenario Outline: check Next button (clickable)
 
 Examples:
 |email|pw|newpw|date|
-|automated4@testing.com|Aa000000|Aa000000|July 18 2000|
+|automated6@testing.com|Aa000000|Aa000000|July 18 2000|
 
 
 

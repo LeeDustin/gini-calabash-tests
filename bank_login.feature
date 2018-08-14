@@ -4,12 +4,26 @@ Feature: bank login page
 Background:
     Given the app has launched
     And I wait for Continue for 10 seconds
-    And I select Skip/跳過
+#    And I select Skip/跳過
+    And I wait for 4 seconds
     And I enter 333333 as passcode
     When I select Continue
     Then I should see Bank Accounts
 # set app to English first
 
+Scenario: Login to demobank
+
+When I select Demobank 2
+And I enter "user01" into textbox number 1
+And I enter "user01" into textbox number 2
+And I swipe up 1 time light
+
+And I select Link
+
+Then I wait for Later for 30 seconds
+And I select Later
+And I select Later
+And I wait for Transaction Feed for 10 seconds
 
 
 Scenario Outline: go into hang seng/hsbc login page, test back button and login
@@ -54,7 +68,7 @@ When I select Link
 Then I wait for Link Bank Accounts for 3 seconds
 And I wait for Report error for 30 seconds
 And I select Close
-And I select Close
+#And I select Close
 And I should see <banklogin>
 
 
@@ -200,7 +214,6 @@ Scenario: Login to demobank
     And I select Link
 
     Then I wait for Later for 30 seconds
-    And I select Later
     And I select Later
     And I wait for Transaction Feed for 10 seconds
 

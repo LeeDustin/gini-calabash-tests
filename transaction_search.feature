@@ -1,11 +1,13 @@
 @tsearch
-Feature: transaction search
+Feature: transaction search (not working)
 # set app to English first and linked banks already
+# view can still be seen even filtered out
+# Housing and Utilities categories labeled as Uncategorized
 
 Background:
     Given the app has launched
     And I wait for Continue for 10 seconds
-    And I wait for 1 second
+    And I wait for 4 seconds
 #    And I select Skip/跳過
     And I enter 333333 as passcode
     When I select Continue

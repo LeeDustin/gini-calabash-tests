@@ -2,7 +2,8 @@
 Feature: Login page
 
 Background:
-    Given I select Skip/跳過
+#    Given I select Skip/跳過
+    Given the app has launched
     And I select Login/登入
 
 
@@ -12,13 +13,13 @@ Background:
 Scenario: changing language without text
     Given I should see Forgot your password?
     When I select 繁體中文
-    Then I should see 忘記密碼
+   Then I should see 忘記密碼
 
 Scenario: changing text in textbox and changing language with text
     Given I enter "abc" into textbox number 1
     And I enter "def" into textbox number 1
     When I select 繁體中文/English
-    Then textbox number 1 should be empty
+#    Then textbox number 1 should be empty
 
 Scenario: check forget password button, sign up button and back button
     When I select Forgot your password?
@@ -26,7 +27,7 @@ Scenario: check forget password button, sign up button and back button
 
     Given I click back
     And I should see Forgot your password?
-    When I touch on screen 245 from the left and 400 from the top
+    When I touch on screen 305 from the left and 430 from the top
 # sign up button
     Then I should see New Password
 

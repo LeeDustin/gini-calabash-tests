@@ -2,7 +2,7 @@
 Feature: create pw and confirm new pw
 
 Background:
-    Given I select Skip/跳過
+#    Given I select Skip/跳過
     And I select Add bank
     And I wait for Create new passcode for 20 seconds
 

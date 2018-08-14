@@ -1,13 +1,15 @@
 @tfeed
-Feature: transaction feed
+Feature: transaction feed (not working)
 # set app to English first and linked banks already
 # 3 cards, including Liability Two, Dummy Account 08, HK 01 Cash Account, last one contains transactions, initially all selected
+
+# cannot select category, transactions hidden can still be queried
 
 
 Background:
     Given the app has launched
     And I wait for Continue for 10 seconds
-    And I wait for 1 second
+    And I wait for 4 seconds
 #    And I select Skip/跳過
     And I enter 333333 as passcode
     When I select Continue
