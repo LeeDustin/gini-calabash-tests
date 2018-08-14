@@ -56,6 +56,7 @@ You can execute separate feature files using `bundle exec cucumber -t <tag>`, as
 | transaction_search.feature | @tsearch | in main app interface, app in English |  |
 | transaction_feed.feature | @tfeed | in main app interface, app in English | has the specified bank cards in the feature file |
 | reports.feature | @reports | in main app interface, app in English, reports page in July |  |
+| accounts.feature | @accounts | in main app interface, app in English, bank cards all selected | |
 
 
 
@@ -104,6 +105,20 @@ It should be noted that these four keywords do not have any differences in terms
 ### Step definitions
 Although a lot of step definitions have already been defined for this app, you may want to modify the step definitions or create new ones yourself.
 
+The step definitions are written in ruby, and is in gini/ios/features/steps/gini_steps.rb.
+One example of step definition is as below:
+```
+Given(/^the app has launched$/) do
+  wait_for do
+    !query("*").empty?
+  end
+end
+```
+
+So it is `Given/When/Then/And` + (`regex for step`) + do + `code executed` + end
+The feature file tries to match the step with the regex in the step definition file, then executes the code within.
+
+You can also take the variables inside the step as parameters to the function executed.
 
 
 
