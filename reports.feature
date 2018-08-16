@@ -58,8 +58,8 @@ Scenario: month swapping
 Scenario: Monthly spend drag
     Given I should see 31st
     When I off-center swipe left 1 time normal
-    Then I should see $2,000
-    And I should see $400
+    Then I should see $400
+    And I should see $200
 
 
 Scenario: Category Spend
@@ -86,7 +86,7 @@ Scenario: check if Biggest spend and Most visited change with month
 
 Scenario: check drop down menu collapse and expand
     When I select Monthly spend
-    Then I should not see 31st
+#    Then I should not see 31st
     And I should see Category spend
 
     When I select Category spend

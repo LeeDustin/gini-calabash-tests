@@ -25,7 +25,7 @@ Scenario: check swiping right and changing language in middle pages
   And I select 繁體中文
   Then I should see 輕觸或滑動開始
 
-Scenario: check first page swipe bug
+Scenario: check first page swipe bug (fail if bug still exists)
   When I swipe right
   Then I should see 輕觸或滑動開始
 

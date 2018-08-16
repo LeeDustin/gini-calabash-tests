@@ -4,6 +4,7 @@ Feature: Login page
 Background:
 #    Given I select Skip/跳過
     Given the app has launched
+    And I wait for 3 seconds
     And I select Login/登入
 
 
@@ -15,7 +16,7 @@ Scenario: changing language without text
     When I select 繁體中文
    Then I should see 忘記密碼
 
-Scenario: changing text in textbox and changing language with text
+Scenario: changing text in textbox and changing language with text (does not clear, inconsistent with other textboxes)
     Given I enter "abc" into textbox number 1
     And I enter "def" into textbox number 1
     When I select 繁體中文/English

@@ -11,19 +11,6 @@ Background:
     Then I should see Bank Accounts
 # set app to English first
 
-Scenario: Login to demobank
-
-When I select Demobank 2
-And I enter "user01" into textbox number 1
-And I enter "user01" into textbox number 2
-And I swipe up 1 time light
-
-And I select Link
-
-Then I wait for Later for 30 seconds
-And I select Later
-And I select Later
-And I wait for Transaction Feed for 10 seconds
 
 
 Scenario Outline: go into hang seng/hsbc login page, test back button and login
@@ -141,7 +128,7 @@ Scenario: go to BOC, test back button and check wrong login
 
 
 
-Scenario Outline: go into each bank login page (except BOC/Hnag Seng/HSBC), test back button and login
+Scenario Outline: go into each bank login page (except BOC/Hnag Seng/HSBC), test back button and login (AMEX fails)
     When I swipe up <swipe> time
     And I wait for 2 seconds
     When I select <bank>
