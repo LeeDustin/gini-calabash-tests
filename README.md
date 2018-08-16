@@ -170,7 +170,7 @@ Within the step definition, any ruby code is legal, and calabash has a ruby API,
  }
 ```
 6. Execute `detox init -r mocha`, which creates a folder named `e2e` in the root directory
-7. In xcode, run the gini app. Alternatively, run `detox build` in terminal
+7. In xcode, run the gini app (scheme gini, not gini-cal as in calabash tests) Alternatively, run `detox build` in terminal
 8. Run `detox test` in terminal to run the default test, which should fail
 
 During my installation, the gini app cannot be built or opened successfully multiple times due to a `Unable to resolve module` error. If you encounter the same problem, try the following.
