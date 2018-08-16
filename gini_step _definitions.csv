@@ -1,0 +1,22 @@
+Step,Arguments,Example,Usage
+the app has launched,,,Waits until app loads something
+I swipe <left/right/up/down> <integer> time(s) <strong/normal/light>,"direction, time, strength",I swipe up 1 time,Swipes the screen one direction specific amount of times with one of the 3 strength options
+I off-center swipe <left/right/up/down> <integer> time(s) <strong/normal/light>,"direction, time, strength",I off-center swipe right 2 times,"same as above, but swipe it below the middle point to avoid buttons"
+I tap the screen <integer> times,time,I tap the screen 3 times,tapping the screen in the middle for specific amount of times
+I select <button1>(/<button2>),button name (1 or 2),I select Skip/跳過,"Presses the specified element, optionally select one of the two specified (useful for language change)"
+I should see <text1>(/<text2>),texts (1 or 2),I should see English,"Searches for the text given, passes if found one of the 2 texts"
+I should not see <text1>(/<text2>),texts (1 or 2),I should not see English/Chinese,"Searches for the text given, passes if cannot find any of the texts"
+I click back,,,click back button at top left of screen
+"I enter ""<text>"" into textbox number <number>",text and textbox index,"I enter ""abc"" into textbox number 2","clear the corresponding textbox, then enter the specified text into the textbox"
+textbox number <number> should be empty,textbox index,textbox number 3 should be empty,passes if the textbox is empty
+textbox number <number> should not be empty,textbox index,textbox number 1 should not be empty,passes if the textbox is not empty
+the <submit button/card/pie slice> labeled <label> should be unclickable/unselected,element/label,the submit button labeled Login should be unclickable,"checks if the button is unclickable or unselected, basically checks if the button is greyed out"
+the <submit button/card/pie slice> labeled <label> should be clickable/selected,label,the submit button labeled Login should be clickable,checks if the button is clickable
+I wait for <number> second(s),seconds,I wait for 1 second,wait certain amount of time (for waiting animation completion)
+I enter <number> as passcode,passcode,I enter 333333 as passcode,enters 6 digit passcode
+I wait for <text> for <number> seconds,"text, seconds",I wait for Login for 3 seconds,"wait for an element to appear, with a time limit"
+I touch on screen <number> from the left and <number> from the top,x and y coordinates,I touch on screen 310 from the left and 40 from the top,touch on a specific point on screen using coordinates (useful for unlabelled elements)
+I toggle button number <number>,button index,I toggle button number 2,toggle the corresponding toggle button
+there should be <number> card(s) unselected,number,there should be 3 cards unselected,check how many bank cards are selected at the top of screen
+the card labeled <label> should be unselected,card label,the card labeled Dummy Account 08 8888 8888 88 should be unselected,check if the bank card is unselected
+the card labeled <label> should be selected,card label,the card labeled Dummy Account 08 8888 8888 88 should be selected,check if the bank card is unselected
