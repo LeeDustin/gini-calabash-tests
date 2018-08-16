@@ -65,7 +65,7 @@ Note that as the gini app evolves, the tests should be modified to match, otherw
 
 ## How to write more tests?
 
-The test suite is currently incomplete, as most tests are in English instead of in both languages, and some tests are difficult to run automatically. So feel free to add more step definitions and feature files to make the test suite better!
+The test suite is currently incomplete, as most tests are in English instead of in both languages, and some tests are difficult to run automatically. So feel free to add more step definitions and feature files to make the test suite better! Please refer to the google sheet for the full manual test suite. The tests not covered are highlighted in blue and purple.
 
 The priniple behind the automated tests is simple. the feature files inside gini/features have the steps written with Gherkin, the language used by cucumber for writing automated tests. The steps in the feature files are then matched with the regex in step definitions in gini/features/steps/gini_steps.rb, which executes the code in the .rb file if matched. 
 
@@ -82,13 +82,16 @@ Feature simply states the feature that you are testing in this feature file.
 #### Scenario
 Each scenario describes one test you want to run on this feature using steps. After each scenario, the app inside the simulator restarts and execute the next scenario.
 #### Scenario Outline
-Similar to scenario, used when you want to execute the same scenario with different parameters. use `<>` to enclose the parameter to be varied, and list the different test cases in the Examples section. After each test case is run, the app restarts to run the next test case. 
+Similar to scenario, used when you want to execute the same scenario with different parameters. use `<>` to enclose the parameter to be varied, and list the different test cases in the Examples section. After each test case is run, the app restarts to run the next test case. Take the following scenario outline as an example:
 
-For example, if I have a step in the outline saying `Given I select <button>`, then in the Examples section, I will have 
 ```
-|button|
-|Login|
-|Sign up|
+Scenario Outline: press diffeent buttons
+  Given I select <button>
+
+Examples:
+  |button|
+  |Login|
+  |Sign up|
 ```
 Then in the scenario outline, Login button will be pressed first, and after the whole scenario finishes, the app restarts and rerun the scenario again but pressing the Sign up button instead.
 #### Background
@@ -97,7 +100,7 @@ Similar to Scenario, but the steps stated in Background are run before each scen
 ### How to write steps
 So we know steps have to be written in Scenarios, Scenario Outlines and Background. How do we write it?
 
-There are default steps provided by calabash and custom step definitions defined in `features/steps/gini_steps.rb` Please find below a summary of all the steps used in the feature files in `gini_step_definitions.csv`.
+There are default steps provided by calabash and custom step definitions defined in `features/steps/gini_steps.rb` Please find a summary of all the steps used in the feature files in `gini_step_definitions.csv`.
 
 With the steps, you add Given/When/Then/And before each step to form coherent test cases. Given is for stating prerequisites, When is for the main action of the test, Then is the result of that action, and And is for any conjunction between the above.
 
@@ -170,7 +173,7 @@ Within the step definition, any ruby code is legal, and calabash has a ruby API,
  }
 ```
 6. Execute `detox init -r mocha`, which creates a folder named `e2e` in the root directory
-7. In xcode, run the gini app (scheme gini, not gini-cal as in calabash tests) Alternatively, run `detox build` in terminal
+7. In xcode, run the gini app (scheme gini, not gini-cal as in calabash tests). Alternatively, run `detox build` in terminal
 8. Run `detox test` in terminal to run the default test, which should fail
 
 During my installation, the gini app cannot be built or opened successfully multiple times due to a `Unable to resolve module` error. If you encounter the same problem, try the following.
@@ -198,7 +201,7 @@ For detox, I only setup the environment, and did not implement the test suite. T
 
 As seen in the js file, the basic principle for the tests is to identify the element using labels and ids, then interact with it. As some labels can be duplicate, it is optimal to add ids to the element, which requires adding a prop named `testID` to the element and call it by id.
 
-For example, to tap the search button in the transaction feed page, testID named `left` is first assigned to the button as he following: `<Image resizeMode="center" style={styles.leftIcon} source={leftImage} testID='left'/>`
+For example, to tap the search button in the transaction feed page, testID named `left` is first assigned to the button as shown here: `<Image resizeMode="center" style={styles.leftIcon} source={leftImage} testID='left'/>`
 
 Then, in `firstTest.spec.js`, I type `await element(by.id('left')).tap()` to tap the button.
 
