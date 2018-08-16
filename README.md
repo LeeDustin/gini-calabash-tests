@@ -41,6 +41,8 @@ Do not use `bundle exec cucumber` directly, as it will execute all feature files
 
 You can execute separate feature files using `bundle exec cucumber -t <tag>`, as each feature file has an unique tag, as listed in the table below.
 
+Note that as the gini app evolves, the tests should be modified to match, otherwise if one test in a feature file fails, all following steps can fail as well, so make sure the tests denote expected behaviour before employing them.
+
 #### Feature files
 
 | Feature File | Tag | Initial Conditions | Remarks |
@@ -53,8 +55,8 @@ You can execute separate feature files using `bundle exec cucumber -t <tag>`, as
 | bank_login.feature | @banklogin | logged in, already entered pw as 333333 |  |
 | settings.feature | @settings | linked banks, in main app interface |  |
 | settings_general.feature | @settingsg | in main app interface, app in English and transaction amount not hidden |  |
-| transaction_search.feature | @tsearch | in main app interface, app in English |  |
-| transaction_feed.feature | @tfeed | in main app interface, app in English | has the specified bank cards in the feature file |
+| transaction_search.feature | @tsearch | in main app interface, app in English | only partially working due to react-native view architecture |
+| transaction_feed.feature | @tfeed | in main app interface, app in English | has the specified bank cards in the feature file, only partially working due to react-native view architecture |
 | reports.feature | @reports | in main app interface, app in English, reports page in July |  |
 | accounts.feature | @accounts | in main app interface, app in English, bank cards all selected | |
 
@@ -95,7 +97,7 @@ Similar to Scenario, but the steps stated in Background are run before each scen
 ### How to write steps
 So we know steps have to be written in Scenarios, Scenario Outlines and Background. How do we write it?
 
-There are default steps provided by calabash and custom step definitions defined in `features/steps/gini_steps.rb` Please find below a summary of all the steps used in the feature files.
+There are default steps provided by calabash and custom step definitions defined in `features/steps/gini_steps.rb` Please find below a summary of all the steps used in the feature files in `gini_step_definitions.csv`.
 
 With the steps, you add Given/When/Then/And before each step to form coherent test cases. Given is for stating prerequisites, When is for the main action of the test, Then is the result of that action, and And is for any conjunction between the above.
 
@@ -120,6 +122,85 @@ The feature file tries to match the step with the regex in the step definition f
 
 You can also take the variables inside the step as parameters to the function executed.
 
+```
+When(/^I swipe (left|right|up|down) (\d+) times?(?: (strong|normal|light))?$/) do |dir,times,strength|
+    $i = 0
+    strength ||= "strong"
+    $num = times.to_i
+    while $i < $num do
+        if strength == ""
+            swipe(dir, force: :strong)
+        else
+            swipe(dir, force: :"#{strength}")
+        end
+        wait_for_none_animating
+        $i +=1
+    end
+end
+```
+An example of this step would be `When I swipe up 2 times`. The step definition will then take `up` as `dir`, `2` as `times` and `strength` is defaulted to be `strong`, as denoted in the code. 
 
+Within the step definition, any ruby code is legal, and calabash has a ruby API, you can read more about it [here](https://github.com/calabash/calabash-ios/wiki/Calabash-iOS-Ruby-API). Besides custom step definitions, calabash also provides some default step definitions, some of them are shown [here](http://docs.testmunk.com/en/latest/steps.html). 
 
+## How to setup detox
+
+#### Prerequisites: 
+1. Have gini app installed and running in simulator
+2. Homebrew
+3. Node 8.3.0 or above
+4. applesimutils
+
+#### Steps:
+1. install detox command line by `npm install -g detox-cli`
+2. In terminal, go to root directory of the project (i.e. gini/)
+3. Type the following command: `npm install detox --save-dev`
+4. Install mocha `npm install mocha --save-dev`
+5. Add the following to your `package.json`
+```
+"detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/gini.app",
+        "build":
+          "xcodebuild -project ios/gini.xcodeproj -scheme gini -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 8 Plus"
+      }
+    }
+ }
+```
+6. Execute `detox init -r mocha`, which creates a folder named `e2e` in the root directory
+7. In xcode, run the gini app. Alternatively, run `detox build` in terminal
+8. Run `detox test` in terminal to run the default test, which should fail
+
+During my installation, the gini app cannot be built or opened successfully multiple times due to a `Unable to resolve module` error. If you encounter the same problem, try the following.
+```
+watchman watch-del-all
+rm -rf ./node_modules
+npm cache clean
+yarn cache clean
+rm -rf $TMPDIR/react-*
+yarn install
+npm cache clean
+yarn cache clean
+yarn add uuid
+```
+
+### Why detox
+
+Calabash works fine for ios native app, but for react native apps with complicated views (i.e. transaction cards, collapsable reports, etc.), some of the calabash queries are inaccurate, making it impossible to write tests for those features in calabash. Detox is designed speicifically for react native apps, and can handle the views correctly.
+
+There are some disadvantages to detox too, such as not reusable steps, need to access elements in code and unexpected behaviour in app (header color change).
+
+### How to modify the steps
+
+For detox, I only setup the environment, and did not implement the test suite. To write the tests, open `firstTest.spec.js` in the `e2e` folder in the root directory, then write corresponding tests.
+
+As seen in the js file, the basic principle for the tests is to identify the element using labels and ids, then interact with it. As some labels can be duplicate, it is optimal to add ids to the element, which requires adding a prop named `testID` to the element and call it by id.
+
+For example, to tap the search button in the transaction feed page, testID named `left` is first assigned to the button as he following: `<Image resizeMode="center" style={styles.leftIcon} source={leftImage} testID='left'/>`
+
+Then, in `firstTest.spec.js`, I type `await element(by.id('left')).tap()` to tap the button.
+
+Therefore, writing detox tests require you to have an understanding of the app's architecture and where to find each element to be more effective.
 
