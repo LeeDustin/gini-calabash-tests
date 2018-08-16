@@ -27,6 +27,8 @@ gem "cucumber", "~> 2.4"
 11. The default test should run successfully, showing how many scenarios and steps have passed
 
 
+Note: Please ensure that the iphone simulator you built in xcode is the same as the one you used for calabash. You can specify what simulator calabash uses by first looking for the UDID of the simulator you want by `xcrun simctl list devices`, then putting `DEVICE_TARGET=<UUID>` in front of any commands. For example: `DEVICE_TARGET=338A0C9D-4075-4FC7-BF5E-F61B1097E684 bundle exec cucumber`
+ 
 ## How to use the tests
 
 #### Prerequisites: 
@@ -188,7 +190,7 @@ npm cache clean
 yarn cache clean
 yarn add uuid
 ```
-
+Also, sometimes the app fail to open even if it has been opened successfully before. Cleaning the project usually does the trick.
 ### Why detox
 
 Calabash works fine for ios native app, but for react native apps with complicated views (i.e. transaction cards, collapsable reports, etc.), some of the calabash queries are inaccurate, making it impossible to write tests for those features in calabash. Detox is designed speicifically for react native apps, and can handle the views correctly.
