@@ -59,8 +59,8 @@ Note that as the gini app evolves, the tests should be modified to match, otherw
 | settings_general.feature | @settingsg | in main app interface, app in English and transaction amount not hidden |  |
 | transaction_search.feature | @tsearch | in main app interface, app in English | only partially working due to react-native view architecture |
 | transaction_feed.feature | @tfeed | in main app interface, app in English | has the specified bank cards in the feature file, only partially working due to react-native view architecture |
-| reports.feature | @reports | in main app interface, app in English, reports page in July |  |
-| accounts.feature | @accounts | in main app interface, app in English, bank cards all selected | |
+| reports.feature | @reports | in main app interface, app in English, reports page in July | only partially working due to react-native view architecture |
+| accounts.feature | @accounts | in main app interface, app in English, bank cards all selected | only partially working due to react-native view architecture |
 
 
 
