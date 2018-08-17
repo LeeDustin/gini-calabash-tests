@@ -1,4 +1,4 @@
-# gini-calabash-tests
+# Gini Automated Tests
 
 ## How to setup calabash environment
 (official calabash tutorial: https://github.com/calabash/calabash-ios/wiki/Tutorial%3A-How-to-add-Calabash-to-Xcode)
@@ -69,7 +69,7 @@ Note that as the gini app evolves, the tests should be modified to match, otherw
 
 The test suite is currently incomplete, as most tests are in English instead of in both languages, and some tests are difficult to run automatically. So feel free to add more step definitions and feature files to make the test suite better! Please refer to the google sheet for the full manual test suite. The tests not covered are highlighted in blue and purple.
 
-The priniple behind the automated tests is simple. the feature files inside gini/features have the steps written with Gherkin, the language used by cucumber for writing automated tests. The steps in the feature files are then matched with the regex in step definitions in gini/features/steps/gini_steps.rb, which executes the code in the .rb file if matched. 
+The principle behind the automated tests is simple. the feature files inside gini/features have the steps written with Gherkin, the language used by cucumber for writing automated tests. The steps in the feature files are then matched with the regex in step definitions in gini/features/steps/gini_steps.rb, which executes the code in the .rb file if matched. 
 
 ### Feature file structure
 
@@ -112,7 +112,7 @@ It should be noted that these four keywords do not have any differences in terms
 ### Step definitions
 Although a lot of step definitions have already been defined for this app, you may want to modify the step definitions or create new ones yourself.
 
-The step definitions are written in ruby, and is in gini/ios/features/steps/gini_steps.rb.
+The step definitions are written in ruby, and is in `gini/ios/features/steps/gini_steps.rb`.
 One example of step definition is as below:
 ```
 Given(/^the app has launched$/) do
