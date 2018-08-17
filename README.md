@@ -203,7 +203,7 @@ For detox, I only setup the environment, and did not implement the test suite. T
 
 As seen in the js file, the basic principle for the tests is to identify the element using labels and ids, then interact with it. As some labels can be duplicate, it is optimal to add ids to the element, which requires adding a prop named `testID` to the element and call it by id.
 
-For example, to tap the search button in the transaction feed page, testID named `left` is first assigned to the button as shown here: `<Image resizeMode="center" style={styles.leftIcon} source={leftImage} testID='left'/>`
+For example, to tap the search button in the transaction feed page, testID named `left` is first assigned to the button in GradientHeader.js as shown here: `<Image resizeMode="center" style={styles.leftIcon} source={leftImage} testID='left'/>`
 
 Then, in `firstTest.spec.js`, I type `await element(by.id('left')).tap()` to tap the button.
 
